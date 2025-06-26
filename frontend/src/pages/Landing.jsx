@@ -1,78 +1,14 @@
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { BookOpen, Shuffle, Download, Menu } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { BookOpen, Shuffle, Download } from "lucide-react";
 import { Link } from "react-router-dom";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function Landing() {
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            {/* Logo */}
-            <div className="flex items-center space-x-2">
-              <BookOpen className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-              <span className="text-xl font-bold text-foreground">PAPERGEN</span>
-            </div>
-
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <Link
-                to="/"
-                className="text-sm font-medium text-foreground hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-              >
-                Home
-              </Link>
-              <Link
-                to="/submit"
-                className="text-sm font-medium text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-              >
-                Submit Question
-              </Link>
-              <Link
-                to="/generate"
-                className="text-sm font-medium text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-              >
-                Generate Paper
-              </Link>
-              <Link
-                to="/questions"
-                className="text-sm font-medium text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-              >
-                All Questions
-              </Link>
-            </nav>
-
-            {/* Right side buttons */}
-            <div className="flex items-center space-x-4">
-              <ThemeToggle />
-              <div className="hidden sm:flex items-center space-x-2">
-                <Link to="/login">
-                  <Button variant="ghost" size="sm">Login</Button>
-                </Link>
-                <Link to="/register">
-                  <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white">
-                    Register
-                  </Button>
-                </Link>
-              </div>
-
-              {/* Mobile menu button */}
-              <Button variant="ghost" size="sm" className="md:hidden">
-                <Menu className="h-5 w-5" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Hero Section */}
       <section className="py-20 lg:py-32">
@@ -107,7 +43,7 @@ export default function Landing() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {/* Feature 1 */}
+            {/* Feature Cards */}
             <Card className="text-center border-0 shadow-lg hover:shadow-xl transition-shadow dark:bg-background">
               <CardHeader>
                 <div className="mx-auto w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-4">
@@ -117,12 +53,11 @@ export default function Landing() {
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-base">
-                  Build and manage comprehensive question banks organized by subjects, topics, and difficulty levels for easy access and reuse.
+                  Build and manage comprehensive question banks organized by subjects, topics, and difficulty levels.
                 </CardDescription>
               </CardContent>
             </Card>
 
-            {/* Feature 2 */}
             <Card className="text-center border-0 shadow-lg hover:shadow-xl transition-shadow dark:bg-background">
               <CardHeader>
                 <div className="mx-auto w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-4">
@@ -132,12 +67,11 @@ export default function Landing() {
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-base">
-                  Automatically generate unique question papers with intelligent randomization based on your criteria and requirements.
+                  Automatically generate unique question papers with randomization based on your input criteria.
                 </CardDescription>
               </CardContent>
             </Card>
 
-            {/* Feature 3 */}
             <Card className="text-center border-0 shadow-lg hover:shadow-xl transition-shadow dark:bg-background">
               <CardHeader>
                 <div className="mx-auto w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mb-4">
@@ -147,7 +81,7 @@ export default function Landing() {
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-base">
-                  Export your generated question papers in professional PDF or Word formats, ready for printing and distribution.
+                  Export question papers in professional PDF or Word formats ready for distribution.
                 </CardDescription>
               </CardContent>
             </Card>
@@ -155,25 +89,7 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-background border-t py-12">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            {/* Left side - Links */}
-            <div className="flex flex-wrap gap-6">
-              <Link to="/about" className="text-sm text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About</Link>
-              <Link to="/contact" className="text-sm text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contact</Link>
-              <Link to="/terms" className="text-sm text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Terms</Link>
-              <Link to="/privacy" className="text-sm text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Privacy</Link>
-            </div>
-
-            {/* Right side - Copyright */}
-            <div className="text-sm text-muted-foreground md:text-right">
-              © 2025 PAPERGEN – Built with ❤️ at Jahangirnagar University
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
