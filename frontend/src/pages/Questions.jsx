@@ -223,134 +223,123 @@ export default function Questions() {
     }
   };
 
-  return (
-    <div className="min-h-screen bg-background">
-      <Header />
+return (
+  <div className="min-h-screen bg-background">
+    <Header />
 
-      {/* Main Content */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-8">
-            <div className="flex items-center justify-between">
-              <div>
-                <h1 className="text-3xl font-bold text-foreground mb-4">All Questions</h1>
-                <p className="text-lg text-muted-foreground max-w-2xl">
-                  Manage and browse all questions in the question bank
-                </p>
-              </div>
-              <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white">
-                <Link to="/submit">
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add Question
-                </Link>
-              </Button>
+    {/* Main Content */}
+    <section className="py-20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-foreground mb-4">All Questions</h1>
+              <p className="text-lg text-muted-foreground max-w-2xl">
+                Manage and browse all questions in the question bank
+              </p>
             </div>
+            <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white">
+              <Link to="/submit">
+                <Plus className="h-4 w-4 mr-2" />
+                Add Question
+              </Link>
+            </Button>
+          </div>
+        </div>
+
+        {/* Filters - Redesigned */}
+        <div className="mb-8 space-y-4">
+          {/* Search Bar */}
+          <div className="relative w-full max-w-2xl">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Search questions..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10"
+            />
           </div>
 
-          {/* Filters */}
-          <Card className="mb-6">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle className="flex items-center gap-2">
-                  <Filter className="h-5 w-5" />
-                  Filters
-                </CardTitle>
-                <Button variant="outline" size="sm" onClick={clearFilters}>
-                  Clear All
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
-                {/* Search */}
-                <div className="lg:col-span-2 space-y-2">
-                  <Label>Search</Label>
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      placeholder="Search questions..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10"
-                    />
-                  </div>
-                </div>
+          {/* Filter Controls */}
+          <div className="flex flex-wrap items-center gap-4">
+            {/* Subject Filter */}
+            <div className="w-full sm:w-auto">
+              <Select value={subjectFilter} onValueChange={setSubjectFilter}>
+                <SelectTrigger className="min-w-[180px]">
+                  <SelectValue placeholder="Subject" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Subjects</SelectItem>
+                  {subjects.map((subject) => (
+                    <SelectItem key={subject} value={subject}>
+                      {subject}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
 
-                {/* Subject Filter */}
-                <div className="space-y-2">
-                  <Label>Subject</Label>
-                  <Select value={subjectFilter} onValueChange={setSubjectFilter}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Subjects</SelectItem>
-                      {subjects.map((subject) => (
-                        <SelectItem key={subject} value={subject}>
-                          {subject}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
+            {/* Topic Filter */}
+            <div className="w-full sm:w-auto">
+              <Select value={topicFilter} onValueChange={setTopicFilter}>
+                <SelectTrigger className="min-w-[180px]">
+                  <SelectValue placeholder="Topic" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Topics</SelectItem>
+                  {topics.map((topic) => (
+                    <SelectItem key={topic} value={topic}>
+                      {topic}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
 
-                {/* Topic Filter */}
-                <div className="space-y-2">
-                  <Label>Topic</Label>
-                  <Select value={topicFilter} onValueChange={setTopicFilter}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Topics</SelectItem>
-                      {topics.map((topic) => (
-                        <SelectItem key={topic} value={topic}>
-                          {topic}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
+            {/* Type Filter */}
+            <div className="w-full sm:w-auto">
+              <Select value={typeFilter} onValueChange={setTypeFilter}>
+                <SelectTrigger className="min-w-[180px]">
+                  <SelectValue placeholder="Type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Types</SelectItem>
+                  <SelectItem value="short">Short Answer</SelectItem>
+                  <SelectItem value="long">Long Answer</SelectItem>
+                  <SelectItem value="mcq">Multiple Choice</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-                {/* Type Filter */}
-                <div className="space-y-2">
-                  <Label>Type</Label>
-                  <Select value={typeFilter} onValueChange={setTypeFilter}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Types</SelectItem>
-                      <SelectItem value="short">Short Answer</SelectItem>
-                      <SelectItem value="long">Long Answer</SelectItem>
-                      <SelectItem value="mcq">Multiple Choice</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+            {/* Difficulty Filter */}
+            <div className="w-full sm:w-auto">
+              <Select value={difficultyFilter} onValueChange={setDifficultyFilter}>
+                <SelectTrigger className="min-w-[180px]">
+                  <SelectValue placeholder="Difficulty" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Levels</SelectItem>
+                  <SelectItem value="easy">Easy</SelectItem>
+                  <SelectItem value="medium">Medium</SelectItem>
+                  <SelectItem value="hard">Hard</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-                {/* Difficulty Filter */}
-                <div className="space-y-2">
-                  <Label>Difficulty</Label>
-                  <Select value={difficultyFilter} onValueChange={setDifficultyFilter}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Levels</SelectItem>
-                      <SelectItem value="easy">Easy</SelectItem>
-                      <SelectItem value="medium">Medium</SelectItem>
-                      <SelectItem value="hard">Hard</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
+            {/* Clear Button */}
+            <Button
+              variant="destructive"
+              onClick={clearFilters}
+            >
+              Clear
+            </Button>
+          </div>
 
-              {/* Results count */}
-              <div className="mt-4 text-sm text-muted-foreground">
-                Showing {filteredQuestions.length} of {questions.length} questions
-              </div>
-            </CardContent>
-          </Card>
+          {/* Results count */}
+          <div className="text-sm text-muted-foreground">
+            Showing {filteredQuestions.length} of {questions.length} questions
+          </div>
+        </div>
 
           {/* Questions Table */}
           <Card>
