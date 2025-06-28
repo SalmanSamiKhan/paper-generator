@@ -50,10 +50,13 @@ export default function Login() {
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.detail || "Login failed");
+      if (!res.ok) {
+        const errorMsg = data.detail || data.message || "Login failed";
+        throw new Error(errorMsg);
+      }
 
-      localStorage.setItem("token", data.access);
-      localStorage.setItem("refresh", data.refresh);
+      localStorage.setItem("token", data.access);   // JWT Access Token
+      localStorage.setItem("refresh", data.refresh); // JWT Refresh Token
 
       if (rememberMe) {
         localStorage.setItem("rememberedUsername", username);
