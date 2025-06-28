@@ -40,7 +40,7 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
+      const res = await fetch("http://localhost:8000/api/auth/login/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -50,9 +50,10 @@ export default function Login() {
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Login failed");
+      if (!res.ok) throw new Error(data.detail || "Login failed");
 
-      localStorage.setItem("token", data.token);
+      localStorage.setItem("token", data.access);
+      localStorage.setItem("refresh", data.refresh);
 
       if (rememberMe) {
         localStorage.setItem("rememberedUsername", username);
