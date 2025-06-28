@@ -1,9 +1,25 @@
-import { BookOpen, Menu } from "lucide-react";
+import { BookOpen, Menu, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { useEffect, useState } from "react";
 
 export default function Header() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsAuthenticated(!!token);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("refresh");
+    setIsAuthenticated(false);
+    navigate("/login");
+  };
+
   return (
     <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -26,13 +42,28 @@ export default function Header() {
           <div className="flex items-center space-x-4">
             <ThemeToggle />
             <div className="hidden sm:flex items-center space-x-2">
-              <Link to="/login">
-                <Button variant="ghost" size="sm">Login</Button>
-              </Link>
-              <Link to="/register">
-                <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white">Register</Button>
-              </Link>
+              {isAuthenticated ? (
+                <Button
+                  size="sm"
+                  variant="destructive"
+                  onClick={handleLogout}
+                  className="flex items-center gap-1"
+                >
+                  <LogOut className="w-4 h-4" />
+                  Logout
+                </Button>
+              ) : (
+                <>
+                  <Link to="/login">
+                    <Button variant="ghost" size="sm">Login</Button>
+                  </Link>
+                  <Link to="/register">
+                    <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white">Register</Button>
+                  </Link>
+                </>
+              )}
             </div>
+
             <Button variant="ghost" size="sm" className="md:hidden">
               <Menu className="h-5 w-5" />
             </Button>
